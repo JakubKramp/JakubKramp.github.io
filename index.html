@@ -10,13 +10,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f8f6f1;
-      --ink: #1a1814;
-      --ink-muted: #8a8680;
-      --ink-faint: #c8c4be;
-      --accent: #2a5caa;
+      --bg: #111009;
+      --bg2: #1a1814;
+      --ink: #e8e4de;
+      --ink-muted: #7a7670;
+      --ink-faint: #2a2824;
+      --accent: #c8a96e;
+      --green: #4daa70;
       --serif: 'Instrument Serif', Georgia, serif;
       --sans: 'Instrument Sans', sans-serif;
+      --max: 900px;
     }
 
     html { scroll-behavior: smooth; }
@@ -30,7 +33,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Nav */
+    /* ── Nav ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -40,14 +43,7 @@
       align-items: center;
       padding: 20px 48px;
       background: var(--bg);
-    }
-
-    nav::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 48px; right: 48px;
-      height: 1px;
-      background: var(--ink-faint);
+      border-bottom: 1px solid var(--ink-faint);
     }
 
     .nav-name {
@@ -74,55 +70,50 @@
 
     .nav-links a:hover { color: var(--ink); }
 
-    /* Sections */
-    section {
-      max-width: 680px;
+    /* ── Layout ── */
+    .container {
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 120px 24px;
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      padding: 0 32px;
     }
 
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
+    /* ── About ── */
+    #about {
+      padding: 160px 0 100px;
+      border-bottom: 1px solid var(--ink-faint);
     }
 
-    /* About */
-    #about { padding-top: 160px; }
-
-    .about-eyebrow {
+    .eyebrow {
       font-size: 12px;
       font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--ink-muted);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
-    .about-name {
+    .hero-name {
       font-family: var(--serif);
-      font-size: clamp(48px, 8vw, 80px);
-      line-height: 1.05;
+      font-size: clamp(52px, 9vw, 88px);
+      line-height: 1.0;
       color: var(--ink);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
-    .about-name em {
+    .hero-name em {
       font-style: italic;
       color: var(--accent);
     }
 
-    .about-bio {
+    .bio {
       font-size: 17px;
       color: var(--ink-muted);
       line-height: 1.8;
-      max-width: 520px;
-      margin-bottom: 36px;
+      max-width: 540px;
+      margin-bottom: 40px;
     }
 
-    .about-links {
+    .btn-row {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
@@ -132,7 +123,7 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: 4px;
       font-family: var(--sans);
       font-size: 13px;
@@ -140,17 +131,16 @@
       text-decoration: none;
       transition: all 0.2s;
       letter-spacing: 0.01em;
+      cursor: pointer;
+      border: none;
     }
 
     .btn-primary {
       background: var(--ink);
       color: var(--bg);
-      border: 1px solid var(--ink);
     }
 
-    .btn-primary:hover {
-      background: #2e2b26;
-    }
+    .btn-primary:hover { background: #cfc9c0; }
 
     .btn-ghost {
       background: transparent;
@@ -158,20 +148,11 @@
       border: 1px solid var(--ink-faint);
     }
 
-    .btn-ghost:hover {
-      border-color: var(--ink);
-    }
+    .btn-ghost:hover { border-color: var(--ink-muted); }
 
-    /* Divider */
-    .divider {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 0 24px;
-      border: none;
-      border-top: 1px solid var(--ink-faint);
-    }
+    /* ── Projects ── */
+    #projects { padding: 80px 0; border-bottom: 1px solid var(--ink-faint); }
 
-    /* Projects */
     .section-label {
       font-size: 12px;
       font-weight: 500;
@@ -181,17 +162,11 @@
       margin-bottom: 40px;
     }
 
-    .projects {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
     .project {
       display: grid;
       grid-template-columns: 1fr auto;
-      align-items: start;
-      gap: 24px;
+      align-items: center;
+      gap: 32px;
       padding: 28px 0;
       border-bottom: 1px solid var(--ink-faint);
       text-decoration: none;
@@ -199,8 +174,8 @@
       transition: opacity 0.2s;
     }
 
-    .project:first-child { border-top: 1px solid var(--ink-faint); }
-    .project:hover { opacity: 0.6; }
+    .project:first-of-type { border-top: 1px solid var(--ink-faint); }
+    .project:hover { opacity: 0.55; }
 
     .project-name {
       font-family: var(--serif);
@@ -213,9 +188,18 @@
       font-size: 14px;
       color: var(--ink-muted);
       line-height: 1.6;
+      max-width: 560px;
     }
 
-    .project-tag {
+    .project-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .tag {
       font-size: 11px;
       font-weight: 500;
       color: var(--ink-muted);
@@ -223,14 +207,43 @@
       padding: 4px 10px;
       border-radius: 20px;
       white-space: nowrap;
-      margin-top: 4px;
     }
 
-    /* Contact */
+    .badge-active {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--green);
+      background: rgba(77, 170, 112, 0.08);
+      border: 1px solid rgba(77, 170, 112, 0.2);
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .badge-active::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ── Contact ── */
+    #contact { padding: 80px 0 100px; }
+
     .contact-heading {
       font-family: var(--serif);
-      font-size: clamp(32px, 5vw, 48px);
-      line-height: 1.15;
+      font-size: clamp(36px, 5vw, 52px);
+      line-height: 1.1;
       margin-bottom: 16px;
     }
 
@@ -242,30 +255,32 @@
     .contact-sub {
       font-size: 15px;
       color: var(--ink-muted);
-      margin-bottom: 32px;
-      max-width: 400px;
+      margin-bottom: 36px;
     }
 
     .contact-email {
       font-family: var(--serif);
-      font-size: 22px;
+      font-size: 24px;
       color: var(--ink);
       text-decoration: none;
       border-bottom: 1px solid var(--ink-faint);
-      padding-bottom: 2px;
-      transition: border-color 0.2s;
+      padding-bottom: 3px;
+      transition: border-color 0.2s, color 0.2s;
       display: inline-block;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
     }
 
-    .contact-email:hover { border-color: var(--ink); }
+    .contact-email:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
 
-    .social-links {
+    .socials {
       display: flex;
-      gap: 16px;
+      gap: 20px;
     }
 
-    .social-link {
+    .social {
       font-size: 13px;
       font-weight: 500;
       color: var(--ink-muted);
@@ -273,17 +288,16 @@
       transition: color 0.2s;
     }
 
-    .social-link:hover { color: var(--ink); }
+    .social:hover { color: var(--ink); }
 
-    /* Footer */
+    /* ── Footer ── */
     footer {
-      max-width: 680px;
+      border-top: 1px solid var(--ink-faint);
+      padding: 20px 32px;
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 24px 24px 48px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--ink-faint);
     }
 
     footer span {
@@ -293,8 +307,10 @@
 
     @media (max-width: 600px) {
       nav { padding: 16px 24px; }
-      nav::after { left: 24px; right: 24px; }
       .nav-links { gap: 20px; }
+      .container { padding: 0 20px; }
+      .project { grid-template-columns: 1fr; }
+      .project-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -308,90 +324,93 @@
   </ul>
 </nav>
 
-<!-- About -->
-<section id="about">
-  <p class="about-eyebrow">Software Developer</p>
-  <h1 class="about-name">Jakub<br /><em>Kramp</em></h1>
-  <p class="about-bio">
-    I build tools that help people learn and create. Interested in Python,
-    distributed systems, and the occasional side project that gets out of hand.
-    Currently working on A Tour of Python.
-  </p>
-  <div class="about-links">
-    <a href="https://jakubkramp.github.io/resume.pdf" target="_blank" class="btn btn-primary">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-      </svg>
-      Resume
-    </a>
-    <a href="https://github.com/jakubkramp" target="_blank" class="btn btn-ghost">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-      </svg>
-      GitHub
-    </a>
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- Projects -->
-<section id="projects">
-  <p class="section-label">Projects</p>
-  <div class="projects">
-    <a href="https://github.com/jakubkramp/tour-of-python" target="_blank" class="project">
-      <div>
-        <p class="project-name">A Tour of Python</p>
-        <p class="project-desc">An interactive guide to Python, inspired by the Tour of Go. Learn by reading and running code directly in the browser.</p>
+<main>
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <p class="eyebrow">Software Developer</p>
+      <h1 class="hero-name">Jakub<br /><em>Kramp</em></h1>
+      <p class="bio">
+        I build tools that help people learn and create. Interested in Python,
+        distributed systems, and the occasional side project that gets out of hand.
+        Currently working on A Tour of Python.
+      </p>
+      <div class="btn-row">
+        <a href="https://jakubkramp.github.io/resume.pdf" target="_blank" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          Resume
+        </a>
+        <a href="https://github.com/jakubkramp" target="_blank" class="btn btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          GitHub
+        </a>
       </div>
-      <span class="project-tag">Go · Svelte</span>
-    </a>
-    <a href="#" class="project">
-      <div>
-        <p class="project-name">Project Two</p>
-        <p class="project-desc">A short description of what this project does and why it exists.</p>
-      </div>
-      <span class="project-tag">Python</span>
-    </a>
-    <a href="#" class="project">
-      <div>
-        <p class="project-name">Project Three</p>
-        <p class="project-desc">A short description of what this project does and why it exists.</p>
-      </div>
-      <span class="project-tag">TypeScript</span>
-    </a>
-  </div>
-</section>
+    </div>
+  </section>
 
-<hr class="divider" />
+  <!-- Projects -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label">Projects</p>
 
-<!-- Contact -->
-<section id="contact">
-  <p class="section-label">Contact</p>
-  <h2 class="contact-heading">Let's <em>work</em><br />together</h2>
-  <p class="contact-sub">Have a project in mind or just want to say hello? My inbox is open.</p>
-  <a href="mailto:your@email.com" class="contact-email">your@email.com</a>
-  <div class="social-links">
-    <a href="https://github.com/jakubkramp" target="_blank" class="social-link">GitHub</a>
-    <a href="https://linkedin.com/in/jakubkramp" target="_blank" class="social-link">LinkedIn</a>
-  </div>
-</section>
+      <a href="https://github.com/jakubkramp/tour-of-python" target="_blank" class="project">
+        <div>
+          <p class="project-name">A Tour of Python</p>
+          <p class="project-desc">An interactive guide to Python inspired by the Tour of Go. Learn by reading and running code directly in the browser.</p>
+        </div>
+        <div class="project-right">
+          <span class="badge-active">Active</span>
+          <span class="tag">Go · Svelte</span>
+        </div>
+      </a>
+
+      <a href="#" class="project">
+        <div>
+          <p class="project-name">Project Two</p>
+          <p class="project-desc">A short description of what this project does and why it exists.</p>
+        </div>
+        <div class="project-right">
+          <span class="badge-active">Active</span>
+          <span class="tag">Python</span>
+        </div>
+      </a>
+
+      <a href="#" class="project">
+        <div>
+          <p class="project-name">Project Three</p>
+          <p class="project-desc">A short description of what this project does and why it exists.</p>
+        </div>
+        <div class="project-right">
+          <span class="tag">TypeScript</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Contact</p>
+      <h2 class="contact-heading">Let's <em>work</em><br />together</h2>
+      <p class="contact-sub">Have a project in mind or just want to say hello? My inbox is open.</p>
+      <a href="mailto:jakramp96@email.com" class="contact-email">jakramp96@email.com</a>
+      <div class="socials">
+        <a href="https://github.com/jakubkramp" target="_blank" class="social">GitHub</a>
+        <a href="https://linkedin.com/in/jakubkramp" target="_blank" class="social">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+</main>
 
 <footer>
   <span>Jakub Kramp</span>
   <span>© 2026</span>
 </footer>
-
-<script>
-  // Intersection observer for fade-in animations
-  const sections = document.querySelectorAll('section');
-  const observer = new IntersectionObserver(
-          entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-          { threshold: 0.1 }
-  );
-  sections.forEach(s => observer.observe(s));
-</script>
 
 </body>
 </html>
