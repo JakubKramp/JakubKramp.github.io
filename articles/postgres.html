@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PostgreSQL: Features you don't expect in a database — Jakub Kramp</title>
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="atricles.css" />
@@ -23,83 +24,125 @@
     <header class="article-header">
         <a href="/articles.html" class="back-link">← All articles</a>
         <div class="article-meta-row">
-            <span class="meta-item">January 2026</span>
+            <span class="meta-item">March 2026</span>
             <span class="meta-dot">·</span>
             <span class="meta-item">5 min read</span>
         </div>
-        <h1 class="article-title">PostgreSQL: Features you don't expect in a database</h1>
-        <p class="article-subtitle">The story behind the project, what I learned from the Tour of Go, and why interactive learning beats documentation.</p>
+        <h1 class="article-title">Modern databases: Features you might not expect</h1>
+        <p class="article-subtitle">A brief overview of features I did not expect modern databases to have, but found extremely useful.</p>
     </header>
 
     <article class="prose">
+        <p>In this article we will be using PostgreSQL as an example, but most of these features are present in many different databases. </p>
+        <h2>Introduction</h2>
         <p>
-            A few months ago I was learning Go. Not because I had to, but because I was curious. The language has a reputation for being simple, opinionated, and fast — and I wanted to see if that was true.
-        </p>
-
+            Whenever someone explains to you what a database is they usually talk about tables, rows columns, they might show you something like this</p>
+        <br>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Role</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>001</td>
+                    <td class="name">Guido</td>
+                    <td class="name">van Rossum</td>
+                    <td><span class="role">Creator</span></td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td class="name">Barry</td>
+                    <td class="name">Warsaw</td>
+                    <td><span class="role">Core Developer</span></td>
+                </tr>
+                <tr>
+                    <td>003</td>
+                    <td class="name">Brett</td>
+                    <td class="name">Cannon</td>
+                    <td><span class="role">Core Developer</span></td>
+                </tr>
+                <tr>
+                    <td>004</td>
+                    <td class="name">Raymond</td>
+                    <td class="name">Hettinger</td>
+                    <td><span class="role">Contributor</span></td>
+                </tr>
+                <tr>
+                    <td>005</td>
+                    <td class="name">Jakub</td>
+                    <td class="name">Kramp</td>
+                    <td><span class="role">Developer</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
         <p>
-            The first thing I did was open the <a href="https://go.dev/tour/welcome/1">Tour of Go</a>. Within an hour I had written my first concurrent program. I didn't read a book. I didn't watch a course. I just... did it, in the browser, with immediate feedback.
+            Perhaps they show you a simple join, or a simple query and for the most part it is a good introduction because at the end of the day that's what a database is.
+            It's just a way to store data in a structured way. The thing with modern databases, especially PostgreSQL is that they're more. Much more.
+            And in this article I will try to get you interested in all the features Postgres brings to the table that you might not expect from the introduction you have just read.
         </p>
-
-        <blockquote>
-            "Learning by doing is the oldest idea in education. The web finally makes it easy to apply at scale."
-        </blockquote>
-
-        <h2>The problem with Python docs</h2>
-
+        <h2>Custom types</h2>
         <p>
-            Python has excellent documentation. The official docs are thorough, well-maintained, and accurate. But they're written for reference, not for learning. If you're a complete beginner trying to understand what a generator is, you'll get a technically correct explanation that assumes you already know what it means.
+            In order to store the data efficiently database needs to know what kind of data each column contains. This way it knows exactly how much memory to reserve for each cell.
+            Some databases support a fixed number of types but postgres allows you to create custom data types.
         </p>
-
+        <h3>
+            Enum Types
+        </h3>
         <p>
-            There are great Python courses out there too — Codecademy, Real Python, countless YouTube channels. But they're all long. You commit to a course, not a concept.
+            For example in our table there is nothing preventing anyone from putting anything they want in the Role column.
+            If we want to limit their choices to a few fixed options a custom enum type is a great solution.
         </p>
-
-        <h2>What makes the Tour of Go special</h2>
-
-        <p>
-            The Tour of Go works because it respects your time. Each lesson is one idea, demonstrated with one example, runnable in one click. There's no setup, no environment issues, no "install this first". You're writing real Go code in 60 seconds.
+        <code>CREATE TYPE role AS ENUM (
+            'Creator',
+            'Core Developer',
+            'Contributor',
+            'Developer'
+            );</code>
+        <br>
+        <br>
+        <p>If you know a little something about databases, you might wonder why not just use a simple check constraint here.
+        And that's a fair point, but if you would like to reuse this in another table, you would have to write the constraint over and over again.
+            With a custom enum type it's way easier.
         </p>
-
-        <h3>The key ingredients</h3>
-
-        <p>
-            After building A Tour of Python, I think there are three things that make interactive learning work: <strong>immediate feedback</strong>, <strong>minimal friction</strong>, and <strong>deliberate pacing</strong>. Remove any one of them and the magic disappears.
+        <a href="https://www.postgresql.org/docs/current/datatype-enum.html">
+            More about enum types
+        </a>
+        <h3>Domain Types
+        </h3>
+        <p>If you want to create a constraint and use it across different tables there is a solution for that in postgres aswell.
+        It is called domains. For example if you want a created_at column that only accepts values from a certain year, you can use domain for that.
         </p>
-
-        <pre><code># Your first Python program
-print("Hello, World!")
-
-# Variables need no declaration
-name = "Python"
-version = 3.12
-
-print(f"Welcome to {name} {version}")</code></pre>
-
-        <p>
-            Building this project taught me more about Python than I expected. Explaining something well forces you to understand it deeply. Writing the lesson on generators, for example, I realized I had been using them for years without fully grasping the execution model.
-        </p>
-
-        <h2>What's next</h2>
-
-        <p>
-            The project is still actively in development. I'm adding more lessons, improving the editor, and working on the people popup feature — interactive cards for the people who shaped Python's history.
-        </p>
-
-        <p>
-            If you're learning Python, give it a try. If you find a mistake or want to contribute, the code is on GitHub.
-        </p>
+        <a href="https://www.postgresql.org/docs/18/domains.html">
+            More about domain types
+        </a>
+        <h3>Composite types</h3>
+        <h3>Range types</h3>
+        <h2>Constraints</h2>
+        <h3>Check constraints</h3>
+        <h3>Unique constraint</h3>
+        <h2>Triggers</h2>
+        <h3>Event triggers</h3>
+        <h2>Full text search</h2>
+        <h3>Trigram similarity</h3>
+        <h2>Row level security</h2>
+        <h2>PostGIS </h2>
     </article>
-
     <div class="article-footer">
         <a href="/articles.html">← All articles</a>
         <a href="/articles/go-for-python-developers.html">Next: Go for Python Developers →</a>
     </div>
 </main>
-
 <footer>
     <span>Jakub Kramp</span>
     <span>© 2026</span>
 </footer>
-
 </body>
 </html>
