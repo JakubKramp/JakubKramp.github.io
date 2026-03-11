@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PostgreSQL: Features you don't expect in a database — Jakub Kramp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="atricles.css" />
+</head>
+<body>
+
+<nav>
+    <a href="/index.html" class="nav-name">Jakub Kramp</a>
+    <ul class="nav-links">
+        <li><a href="/index.html#projects">Projects</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/index.html#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<main>
+    <header class="article-header">
+        <a href="/articles.html" class="back-link">← All articles</a>
+        <div class="article-meta-row">
+            <span class="meta-item">January 2026</span>
+            <span class="meta-dot">·</span>
+            <span class="meta-item">5 min read</span>
+        </div>
+        <h1 class="article-title">PostgreSQL: Features you don't expect in a database</h1>
+        <p class="article-subtitle">The story behind the project, what I learned from the Tour of Go, and why interactive learning beats documentation.</p>
+    </header>
+
+    <article class="prose">
+        <p>
+            A few months ago I was learning Go. Not because I had to, but because I was curious. The language has a reputation for being simple, opinionated, and fast — and I wanted to see if that was true.
+        </p>
+
+        <p>
+            The first thing I did was open the <a href="https://go.dev/tour/welcome/1">Tour of Go</a>. Within an hour I had written my first concurrent program. I didn't read a book. I didn't watch a course. I just... did it, in the browser, with immediate feedback.
+        </p>
+
+        <blockquote>
+            "Learning by doing is the oldest idea in education. The web finally makes it easy to apply at scale."
+        </blockquote>
+
+        <h2>The problem with Python docs</h2>
+
+        <p>
+            Python has excellent documentation. The official docs are thorough, well-maintained, and accurate. But they're written for reference, not for learning. If you're a complete beginner trying to understand what a generator is, you'll get a technically correct explanation that assumes you already know what it means.
+        </p>
+
+        <p>
+            There are great Python courses out there too — Codecademy, Real Python, countless YouTube channels. But they're all long. You commit to a course, not a concept.
+        </p>
+
+        <h2>What makes the Tour of Go special</h2>
+
+        <p>
+            The Tour of Go works because it respects your time. Each lesson is one idea, demonstrated with one example, runnable in one click. There's no setup, no environment issues, no "install this first". You're writing real Go code in 60 seconds.
+        </p>
+
+        <h3>The key ingredients</h3>
+
+        <p>
+            After building A Tour of Python, I think there are three things that make interactive learning work: <strong>immediate feedback</strong>, <strong>minimal friction</strong>, and <strong>deliberate pacing</strong>. Remove any one of them and the magic disappears.
+        </p>
+
+        <pre><code># Your first Python program
+print("Hello, World!")
+
+# Variables need no declaration
+name = "Python"
+version = 3.12
+
+print(f"Welcome to {name} {version}")</code></pre>
+
+        <p>
+            Building this project taught me more about Python than I expected. Explaining something well forces you to understand it deeply. Writing the lesson on generators, for example, I realized I had been using them for years without fully grasping the execution model.
+        </p>
+
+        <h2>What's next</h2>
+
+        <p>
+            The project is still actively in development. I'm adding more lessons, improving the editor, and working on the people popup feature — interactive cards for the people who shaped Python's history.
+        </p>
+
+        <p>
+            If you're learning Python, give it a try. If you find a mistake or want to contribute, the code is on GitHub.
+        </p>
+    </article>
+
+    <div class="article-footer">
+        <a href="/articles.html">← All articles</a>
+        <a href="/articles/go-for-python-developers.html">Next: Go for Python Developers →</a>
+    </div>
+</main>
+
+<footer>
+    <span>Jakub Kramp</span>
+    <span>© 2026</span>
+</footer>
+
+</body>
+</html>
